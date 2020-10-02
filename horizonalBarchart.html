@@ -1,0 +1,88 @@
+
+	
+        <html>
+
+        <head>
+            <title>Line Chart Multiple Axes</title>
+            <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+            <style>
+            canvas {
+                -moz-user-select: none;
+                -webkit-user-select: none;
+                -ms-user-select: none;
+            }
+            </style>
+        </head>
+
+        <body>
+            <div style="width:75%;">
+                <canvas id="person_analysis_graph"></canvas>
+            </div>
+        </body>
+
+        </html>
+<script>
+  
+  var data_chart = {
+            labels: ['70-79','60-69','50-59','40-49','30-39','20-29', '10-19'],
+            datasets: [{
+              label: "Male",
+              backgroundColor: "rgba(54, 162, 235, 0.2)",
+              borderColor: "rgb(54, 162, 235)",
+              borderWidth: 2,
+              data: [-10,-20,-30,-40,-50,-60],
+              }, {
+              label: "Female",
+              backgroundColor: "rgba(255,99,132,0.2)",
+              borderColor: "rgba(255,99,132,1)",
+              borderWidth: 2,
+              data:[10,20,30,40,50,60,70],
+              },
+
+            ]
+          };
+          var options={
+
+        scales: {
+        yAxes: [{
+          position : "left",
+          scaleLabel: { display: true, labelString: 'Number of People' },
+          stacked: true
+        },{
+          position : "right",
+          scaleLabel: { display: true, labelString: 'Number of People' },
+          
+           ticks: {
+            labelOffset:23,
+            beginAtZero: true,
+            stepSize: 0.15,
+            callback: function(value, index, values) {    
+                return  data_chart.labels[index];
+            }
+        }
+        }],
+        xAxes: [{
+          
+          ticks: {
+            callback: function(value, index, values) {
+            return Math.abs(value);
+          }
+          }
+        }]
+        },
+        tooltips: {
+         mode: 'index',
+         intersect: false
+      },
+      hover: {
+         mode: 'index',
+         intersect: false
+      }
+      }
+  var show_chart = document.getElementById('person_analysis_graph').getContext('2d');
+  var horizo_Chart = new Chart(show_chart, {
+            type: 'horizontalBar',
+            data: data_chart,
+            options: options
+          });
+</script>
